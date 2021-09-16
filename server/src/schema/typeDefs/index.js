@@ -23,6 +23,11 @@ const typeDefs = gql`
     age: Int!
     books: [Book!]
   }
+
+  type Mutation {
+    createAuthor(author: String!, age: Int!): Author
+    createBook(title: String!, subtitle: String!, description: String!, authorId: ID!): Book
+  }
 `;
 
 module.exports = typeDefs;

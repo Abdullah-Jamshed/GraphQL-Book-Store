@@ -15,6 +15,26 @@ const resolvers = {
   Author: {
     books: ({ id }) => books.filter((book) => book.authorId == id),
   },
+
+  Mutation: {
+    createAuthor: (parent, { author, age }, me) => {
+      const id = authors.length + 1;
+      authors.push({ id, author, age, books: [] });
+      console.log(authors.slice(-1));
+      return authors.slice(-1)[0];
+    },
+    createBook: (parent, { title, subtitle, description, authorId }, me) => {
+      books.push({
+        id: books.length + 1,
+        title,
+        subtitle,
+        published: new Date().toDateString(),
+        description,
+        authorId,
+      });
+      return books.slice(-1)[0];
+    },
+  },
 };
 
 module.exports = resolvers;
