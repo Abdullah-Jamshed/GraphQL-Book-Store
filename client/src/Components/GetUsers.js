@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { LOAD_USERS, COUNT } from "../GraphQL/Queries";
+import { ALL_BOOKS } from "../GraphQL/Queries";
 
 function GetUsers() {
-  const [users, setUsers] = useState([]);
-  const [count, setCount] = useState(0);
-  const [limit, setLimit] = useState(20);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [books, setBooks] = useState([]);
+  // eslint-disable-next-line
+  const [count, setCount] = useState(8);
+  const [limit, setLimit] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { error, loading, data } = useQuery(LOAD_USERS, { variables: { first: limit, currentPage } });
-  const { data: total } = useQuery(COUNT);
+  const { error, loading, data } = useQuery(ALL_BOOKS, { variables: { booksLimit: limit, booksCurrentPage: currentPage } });
 
   useEffect(() => {
-    if (data) {
-      setUsers(data.users);
-    }
+    data && setBooks(data.books);
   }, [data]);
-
-  useEffect(() => {
-    if (total) {
-      setCount(total.total);
-    }
-  }, [total]);
 
   return (
     <div>
-      {users.map((val, i) => (
-        <div key={i} className="data">
-          <h1>{val.id}</h1>
-          <h2>{val.firstName}</h2>
-        </div>
-      ))}
-
+      {loading ? (
+        <h1>Loading</h1>
+      ) : books.length ? (
+        books.map((val, i) => (
+          <div key={i} className='data'>
+            <h1>{val.id}</h1>
+            <h2>{val.title}</h2>
+          </div>
+        ))
+      ) : (
+        <h1>No Data</h1>
+      )}
       <div>
         <li className='list'>
           {count &&
             [...Array(Math.ceil(count / limit))].map((_, i) => (
-              <ul key={i} onClick={() => setCurrentPage(i)}>
+              <ul key={i} onClick={() => setCurrentPage(i + 1)}>
                 {i + 1}
               </ul>
             ))}

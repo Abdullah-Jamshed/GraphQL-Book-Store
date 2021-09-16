@@ -30,8 +30,8 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <h1 className='heading'>GraphQL apollo-client / graphql-express </h1>
-      {/* <Form />
-      <GetUsers /> */}
+      {/* <Form /> */}
+      <GetUsers />
     </ApolloProvider>
   );
 };
