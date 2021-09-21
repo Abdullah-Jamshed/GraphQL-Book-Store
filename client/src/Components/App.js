@@ -2,13 +2,14 @@ import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
-
 // STYLES
-import "../styles/App.css";
+import classes from "../styles/App.module.css";
 
 // COMPONENTS
-import GetUsers from "./GetUsers";
+import GetBooks from "./GetBooks";
 import Form from "./Form";
+import BookListSection from "./BookListSection";
+import DetailSection from "./DetailSection";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -25,13 +26,17 @@ const client = new ApolloClient({
   link: link,
 });
 
-
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <h1 className='heading'>GraphQL apollo-client / graphql-express </h1>
+      <div className={classes.App}>
+        <BookListSection />
+        <DetailSection />
+      </div>
+
+      {/* <h1 className='heading'>GraphQL apollo-client / graphql-express </h1> */}
       {/* <Form /> */}
-      <GetUsers />
+      {/* <GetBooks /> */}
     </ApolloProvider>
   );
 };

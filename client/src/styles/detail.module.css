@@ -1,0 +1,12 @@
+.main {
+  min-height: 100vh;
+  flex: 1;
+  background: #161e26;
+  border-radius: 16px 0 0 16px;
+}
+
+@media (max-width: 760px) {
+  .main {
+    border-radius: 0;
+  }
+}

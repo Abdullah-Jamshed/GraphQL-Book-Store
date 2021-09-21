@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ALL_BOOKS } from "../GraphQL/Queries";
 
-function GetUsers() {
+function GetBooks() {
   const [books, setBooks] = useState([]);
   // eslint-disable-next-line
   const [count, setCount] = useState(8);
@@ -17,7 +17,7 @@ function GetUsers() {
 
   return (
     <div>
-      {loading ? (
+      {/* {loading ? (
         <h1>Loading</h1>
       ) : books.length ? (
         books.map((val, i) => (
@@ -38,9 +38,9 @@ function GetUsers() {
               </ul>
             ))}
         </li>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default GetUsers;
+export default GetBooks;

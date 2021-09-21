@@ -1,0 +1,24 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+.App {
+  display: flex;
+  background: rgb(237, 237, 237);
+}
+
+.list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+  .App {
+    flex-direction: column;
+  }
+}
