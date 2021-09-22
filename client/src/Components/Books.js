@@ -9,8 +9,8 @@ import Book from "./Book";
 const Books = () => {
   return (
     <div className={classes.booksContainer}>
-      {[...Array(10)].map(() => (
-        <Book />
+      {[...Array(10)].map((_, i) => (
+        <Book key={i} />
       ))}
     </div>
   );
