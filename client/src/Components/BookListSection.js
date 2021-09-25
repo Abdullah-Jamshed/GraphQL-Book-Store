@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // STYLES
 import classes from "../styles/bookList.module.css";
@@ -13,7 +13,7 @@ const BookListSection = () => {
     <div className={classes.main}>
       <SearchBar />
       <Books />
-      <AddBook  />
+      <AddBook />
     </div>
   );
 };

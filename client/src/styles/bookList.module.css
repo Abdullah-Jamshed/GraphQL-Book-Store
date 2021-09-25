@@ -1,4 +1,3 @@
-
 .main {
   min-height: 100vh;
   flex: 2;
@@ -75,12 +74,21 @@
   transition: all 0.2s ease;
 }
 
-.addBookContainer {
-  width: 350px;
-  height: 300px;
+.addBookContainerWrap {
+  scrollbar-color: #e535ab #f2f2f223;
+  overflow: hidden;
   background: #fff;
+  padding: 5px 0;
   border-radius: 16px;
   box-shadow: 0 0 10px 0.5px rgb(0 0 0 / 32%);
+}
+
+.addBookContainer {
+  background: #fff;
+  width: 400px;
+  max-height: 350px;
+  /* border-radius: 16px; */
+  overflow-y: auto;
 }
 
 .addBookButton {
@@ -92,14 +100,14 @@
   font-weight: 700;
   color: #fff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addBookButton > div {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .addBookButton:hover {
@@ -132,31 +140,93 @@
   transform: scale(1.1);
 }
 
-.fields input {
+.field input,
+textarea {
   border: 0.5px solid #cccccc;
   outline: none;
   width: 100%;
   height: 40px;
   border-radius: 6px;
   padding: 10px;
+  background-color: #fff !important;
+}
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus,
+.field input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.fields input:focus {
+.field input:focus,
+textarea:focus {
   border-color: #ed11a3;
 }
 
-.fields label {
+.field {
+  position: relative;
+  margin: 15px 0 20px 0;
+  background: #fff;
+}
+
+.field textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: none;
+  padding: 15px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #e535ab #e4e4e4;
+  scrollbar-width: thin;
+}
+
+.field textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.field textarea::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+.field textarea::-webkit-scrollbar-thumb {
+  background-color: #e535ab;
+  border-radius: 100px;
+}
+
+.field label {
   color: #999;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translate(10px, -50%);
-  padding: 0 5px;
+  padding: 0px 5px;
   transition: all 0.2s ease-out;
 }
 
-.fields input:focus + label,
-.fields input:not(:placeholder-shown) + label {
+.field {
+  border: 0.5px solid #cccccc;
+  border-radius: 10px;
+}
+
+.field:focus,
+.field:focus-within {
+  border: 1px solid #e535ab !important;
+}
+
+.textArea {
+  padding: 10px 5px;
+}
+
+.field input,
+textarea {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label {
   color: #161e26;
   top: 0;
   left: 20px;
@@ -165,8 +235,23 @@
   background: inherit;
 }
 
-.fields {
-  position: relative;
-  margin: 15px 0 20px 0;
-  background: #fff;
+.addBookContainer::-webkit-scrollbar {
+  width: 5px;
+  overflow: hidden;
+}
+
+.addBookContainer::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+  margin: 10px;
+}
+.addBookContainer::-webkit-scrollbar-thumb {
+  background-color: #e535ab;
+  border-radius: 100px;
+}
+
+@media (max-width: 480px) {
+  .addBookContainer {
+    width: 90vw;
+  }
 }
