@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     books: Data!
     book(id: ID): Book!
+    searchedBooks(currentPage: Int, searchedInput: String): Data!
     authors: [Author!]!
     author(id: ID!): Author!
   }

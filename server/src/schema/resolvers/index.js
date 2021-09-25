@@ -12,6 +12,10 @@ const resolvers = {
       const data = await (await fetch(`https://api.itbook.store/1.0/books/${id}`)).json();
       return data;
     },
+    searchedBooks: async (parent, { currentPage, searchedInput }) => {
+      const data = await (await fetch(`https://api.itbook.store/1.0/search/${searchedInput}/${currentPage}`)).json();
+      return data;
+    },
     authors: () => authors,
     author: (parent, { id }) => authors.find((author) => author.id == id),
   },

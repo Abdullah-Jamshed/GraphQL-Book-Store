@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
@@ -6,10 +6,11 @@ import { onError } from "@apollo/client/link/error";
 import classes from "../styles/App.module.css";
 
 // COMPONENTS
-import GetBooks from "./GetBooks";
-import Form from "./Form";
 import BookListSection from "./BookListSection";
 import DetailSection from "./DetailSection";
+
+// ContextApi
+import { BookProvider } from "../ContextApi";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -27,16 +28,15 @@ const client = new ApolloClient({
 });
 
 const App = () => {
+  const refDetail = useRef();
   return (
     <ApolloProvider client={client}>
-      <div className={classes.App}>
-        <BookListSection />
-        <DetailSection />
-      </div>
-
-      {/* <h1 className='heading'>GraphQL apollo-client / graphql-express </h1> */}
-      {/* <Form /> */}
-      {/* <GetBooks /> */}
+      <BookProvider>
+        <div className={classes.App}>
+          <BookListSection refDetail={refDetail} />
+          <DetailSection refDetail={refDetail} />
+        </div>
+      </BookProvider>
     </ApolloProvider>
   );
 };

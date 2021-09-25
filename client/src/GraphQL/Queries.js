@@ -1,13 +1,18 @@
 import { gql } from "@apollo/client";
 
-export const BOOKS_BY_ID = gql`
+export const BOOK_BY_ID = gql`
   query Book($bookId: ID!) {
     book(id: $bookId) {
-      id
       title
       subtitle
       desc
+      language
+      pages
+      price
       publisher
+      rating
+      url
+      authors
     }
   }
 `;
@@ -27,14 +32,15 @@ export const LATEST_BOOKS = gql`
 `;
 
 export const SEARCHED_BOOKS = gql`
-  query Books($booksCurrentPage: Int) {
-    total
-    books(currentPage: $booksCurrentPage) {
-      id
-      title
-      subtitle
-      desc
-      publisher
+  query SearchedBooks($currentPage: Int, $searchedInput: String) {
+    searchedBooks(currentPage: $currentPage, searchedInput: $searchedInput) {
+      total
+      page
+      books {
+        isbn13
+        title
+        image
+      }
     }
   }
 `;

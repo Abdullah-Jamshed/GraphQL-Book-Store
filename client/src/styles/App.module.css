@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 .App {
   display: flex;
   background: rgb(237, 237, 237);
@@ -31,6 +35,7 @@ html {
 
 body::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   overflow: hidden;
 }
 

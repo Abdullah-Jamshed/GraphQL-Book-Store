@@ -8,11 +8,11 @@ import SearchBar from "./SearchBar";
 import Books from "./Books";
 import AddBook from "./AddBook";
 
-const BookListSection = () => {
+const BookListSection = ({ refDetail }) => {
   return (
     <div className={classes.main}>
       <SearchBar />
-      <Books />
+      <Books refDetail={refDetail} />
       <AddBook />
     </div>
   );
