@@ -22,3 +22,22 @@
     flex-direction: column;
   }
 }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #e535ab #e4e4e4;
+  scrollbar-width: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #d6d6d6;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #e535ab;
+  border-radius: 5px;
+}

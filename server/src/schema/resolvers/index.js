@@ -1,13 +1,17 @@
 const books = require("../../data/books.json");
 const authors = require("../../data/authors.json");
+const fetch = require("node-fetch");
 
 const resolvers = {
   Query: {
-    books: (parent, { limit, currentPage }) => {
-      if (!limit && !currentPage) return books;
-      return books.slice((currentPage - 1) * limit, limit * currentPage);
+    books: async (parent, { limit, currentPage }) => {
+      const data = await (await fetch("https://api.itbook.store/1.0/new")).json();
+      return data;
     },
-    book: (parent, { id }) => books.find((book) => book.id == id),
+    book: async (parent, { id }) => {
+      const data = await (await fetch(`https://api.itbook.store/1.0/books/${id}`)).json();
+      return data;
+    },
     authors: () => authors,
     author: (parent, { id }) => authors.find((author) => author.id == id),
   },

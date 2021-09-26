@@ -1,20 +1,32 @@
-const { ApolloServer, gql } = require("apollo-server");
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
-    books(limit: Int, currentPage: Int): [Book!]!
-    book(id: ID!): Book!
+    books: Data!
+    book(id: ID): Book!
     authors: [Author!]!
     author(id: ID!): Author!
   }
+  type Data {
+    total: String
+    page: String
+    books(limit: Int, currentPage: Int): [Book!]!
+  }
 
   type Book {
-    id: ID!
+    isbn13: ID!
     title: String!
-    subtitle: String!
-    published: String!
-    description: String!
-    authorId: ID!
+    subtitle: String
+    authors: String
+    publisher: String
+    pages: String
+    language: String
+    year: String
+    rating: String
+    desc: String
+    price: String
+    image: String
+    url: String
   }
 
   type Author {

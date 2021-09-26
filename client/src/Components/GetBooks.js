@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
-import { ALL_BOOKS } from "../GraphQL/Queries";
+import React from "react";
+// import { useQuery } from "@apollo/client";
+// import { ALL_BOOKS } from "../GraphQL/Queries";
 
 function GetBooks() {
-  const [books, setBooks] = useState([]);
+  // const [books, setBooks] = useState([]);
   // eslint-disable-next-line
-  const [count, setCount] = useState(8);
-  const [limit, setLimit] = useState(2);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [count, setCount] = useState(8);
+  // const [limit, setLimit] = useState(2);
+  // const [currentPage, setCurrentPage] = useState(1);
 
-  const { error, loading, data } = useQuery(ALL_BOOKS, { variables: { booksLimit: limit, booksCurrentPage: currentPage } });
+  // const { error, loading, data } = useQuery(ALL_BOOKS, { variables: { booksLimit: limit, booksCurrentPage: currentPage } });
 
-  useEffect(() => {
-    data && setBooks(data.books);
-  }, [data]);
+  // useEffect(() => {
+  //   data && setBooks(data.books);
+  // }, [data]);
 
   return (
     <div>

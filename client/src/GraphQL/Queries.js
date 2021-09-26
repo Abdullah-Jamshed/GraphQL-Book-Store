@@ -6,22 +6,35 @@ export const BOOKS_BY_ID = gql`
       id
       title
       subtitle
-      description
-      published
-      authorId
+      desc
+      publisher
     }
   }
 `;
 
-export const ALL_BOOKS = gql`
-  query Books($booksLimit: Int, $booksCurrentPage: Int) {
-    books(limit: $booksLimit, currentPage: $booksCurrentPage) {
+export const LATEST_BOOKS = gql`
+  query Books($booksCurrentPage: Int) {
+    books {
+      total
+      page
+      books(currentPage: $booksCurrentPage) {
+        isbn13
+        title
+        image
+      }
+    }
+  }
+`;
+
+export const SEARCHED_BOOKS = gql`
+  query Books($booksCurrentPage: Int) {
+    total
+    books(currentPage: $booksCurrentPage) {
       id
       title
       subtitle
-      description
-      published
-      authorId
+      desc
+      publisher
     }
   }
 `;

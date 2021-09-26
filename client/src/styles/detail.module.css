@@ -1,12 +1,17 @@
 .main {
   min-height: 100vh;
-  flex: 1;
   background: #161e26;
   border-radius: 16px 0 0 16px;
+  width: 30%;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
 @media (max-width: 760px) {
   .main {
+    position: static;
+    width: 100%;
     border-radius: 0;
   }
 }
