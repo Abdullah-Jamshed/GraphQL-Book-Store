@@ -11,7 +11,7 @@ const typeDefs = gql`
   type Data {
     total: String
     page: String
-    books(limit: Int, currentPage: Int): [Book!]!
+    books: [Book!]!
   }
 
   type Book {

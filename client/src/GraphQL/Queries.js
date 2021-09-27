@@ -18,11 +18,11 @@ export const BOOK_BY_ID = gql`
 `;
 
 export const LATEST_BOOKS = gql`
-  query Books($booksCurrentPage: Int) {
+  query Books {
     books {
       total
       page
-      books(currentPage: $booksCurrentPage) {
+      books {
         isbn13
         title
         image
