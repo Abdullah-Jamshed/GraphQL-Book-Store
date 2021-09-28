@@ -25,17 +25,19 @@ const DetailSection = ({ refDetail }) => {
       ) : error ? (
         <h1>Error</h1>
       ) : (
-        <div>
+        <>
           {book ? (
-            Object.keys(book).map((key) => (
-              <p>
-                {key}: {book[key]}
-              </p>
-            ))
+            <div className={classes.detail}>
+              {Object.keys(book).map((key, i) => (
+                <p key={i}>
+                  <span className={classes.key}>{key} :</span> {book[key]}
+                </p>
+              ))}
+            </div>
           ) : (
             <h2>Select Book</h2>
           )}
-        </div>
+        </>
       )}
     </div>
   );

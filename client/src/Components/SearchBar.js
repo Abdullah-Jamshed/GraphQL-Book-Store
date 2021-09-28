@@ -27,8 +27,10 @@ const SearchBar = () => {
       <div className={classes.searchIcon}>
         <FiSearch
           onClick={() => {
-            setIsSearched(true);
-            setSearchedInput(value);
+            if (value !== "") {
+              setIsSearched(true);
+              setSearchedInput(value);
+            }
           }}
         />
       </div>

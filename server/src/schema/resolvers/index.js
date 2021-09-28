@@ -10,8 +10,6 @@ const resolvers = {
     },
     book: async (parent, { id }) => {
       const data = await (await fetch(`https://api.itbook.store/1.0/books/${id}`)).json();
-      // delete data.books.books.__typename;
-      console.log(data);
       return data;
     },
     searchedBooks: async (parent, { currentPage, searchedInput }) => {
@@ -30,7 +28,6 @@ const resolvers = {
     createAuthor: (parent, { author, age }, me) => {
       const id = authors.length + 1;
       authors.push({ id, author, age, books: [] });
-      console.log(authors.slice(-1));
       return authors.slice(-1)[0];
     },
     createBook: (parent, { title, subtitle, description, authorId }, me) => {

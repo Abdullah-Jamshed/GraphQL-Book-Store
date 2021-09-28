@@ -2,14 +2,18 @@
   min-height: 100vh;
   background: #161e26;
   border-radius: 16px 0 0 16px;
-  width: 30%;
+  width: 40%;
   position: fixed;
   right: 0;
   top: 0;
   display: flex;
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   color: #fff;
+  font-size: 14px;
+  font-family: sans-serif;
+  overflow: hidden;
 }
 
 @media (max-width: 760px) {
@@ -18,4 +22,20 @@
     width: 100%;
     border-radius: 0;
   }
+}
+
+.detail {
+  flex: 1;
+  padding: 20px;
+  text-transform: capitalize;
+}
+
+.detail p {
+  margin: 10px 0;
+}
+
+.key {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e535ab;
 }

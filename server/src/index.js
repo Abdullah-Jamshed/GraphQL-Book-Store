@@ -9,5 +9,3 @@ const server = new ApolloServer({
 });
 
 server.listen({ port: 8080 }).then(({ url }) => console.log(`🚀 GraphQL server running at ${url}`));
-
-const indexNumber = (source) => Math.round(Math.random() * (source.length - 1));
