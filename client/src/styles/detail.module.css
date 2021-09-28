@@ -29,6 +29,7 @@
   padding: 20px;
   text-transform: capitalize;
   line-height: 18px;
+  position: relative;
 }
 
 .detail p {
@@ -47,4 +48,24 @@
 
 .list li {
   margin: 10px;
+}
+
+.bookButton {
+  visibility: hidden;
+  background: #e535ab;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+@media (max-width: 760px) {
+  .bookButton {
+    visibility: visible;
+  }
 }

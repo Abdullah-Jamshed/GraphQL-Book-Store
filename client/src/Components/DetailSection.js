@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { BookContext } from "../ContextApi/index";
 
@@ -10,13 +10,13 @@ import { BOOK_BY_ID } from "../GraphQL/Queries";
 import Loader from "./Loader";
 
 const DetailSection = ({ refDetail }) => {
-  const { id, book, setBook } = useContext(BookContext);
+  const { id, book, setBook, offSet } = useContext(BookContext);
 
   const { data, loading, error } = useQuery(BOOK_BY_ID, { variables: { bookId: id }, skip: !id });
 
   useEffect(() => {
     if (data) setBook(data.book);
-  }, [data]);
+  }, [data, setBook]);
 
   return (
     <div className={classes.main} ref={refDetail}>
@@ -31,12 +31,12 @@ const DetailSection = ({ refDetail }) => {
               {Object.keys(book).map(
                 (key, i) =>
                   book[key] &&
-                  (key == "authors" && book[key].split(",").length > 1 ? (
+                  (key === "authors" && book[key].split(",").length > 1 ? (
                     <div key={i}>
                       <span className={classes.key}>{key} :</span>
                       <ul className={classes.list}>
-                        {book[key].split(",").map((val) => (
-                          <li>{val}</li>
+                        {book[key].split(",").map((val, i) => (
+                          <li key={i}>{val}</li>
                         ))}
                       </ul>
                     </div>
@@ -46,6 +46,13 @@ const DetailSection = ({ refDetail }) => {
                     </p>
                   ))
               )}
+              <button
+                className={classes.bookButton}
+                onClick={() => {
+                  window.scrollTo({ top: offSet });
+                }}>
+                back to book
+              </button>
             </div>
           ) : (
             <h2>Select Book</h2>
@@ -57,16 +64,3 @@ const DetailSection = ({ refDetail }) => {
 };
 
 export default DetailSection;
-
-{
-  /* <p>{book.title}</p>
-<p>{book.subtitle}</p>
-<p>{book.desc}</p>
-<p>{book.language}</p>
-<p>{book.pages}</p>
-<p>{book.price}</p>
-<p>{book.publisher}</p>
-<p>{book.rating}</p>
-<p>{book.authors}</p>
-<p>{book.url}</p> */
-}

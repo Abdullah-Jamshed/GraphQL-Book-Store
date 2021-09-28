@@ -5,13 +5,14 @@ import { BookContext } from "../ContextApi/index";
 import classes from "../styles/bookList.module.css";
 
 const Book = ({ book, refDetail }) => {
-  const { setId } = useContext(BookContext);
+  const { id, setId, setOffSet } = useContext(BookContext);
 
   return (
     <div
-      className={classes.bookContainer}
-      onClick={() => {
-        if (window.innerWidth <= 720) {
+      className={`${id === book.isbn13 && classes.selected} ${classes.bookContainer}`}
+      onClick={(e) => {
+        setOffSet(e.target.offsetTop);
+        if (window.innerWidth <= 760) {
           window.scrollTo({ top: refDetail.current.offsetTop });
         }
         setId(book.isbn13);

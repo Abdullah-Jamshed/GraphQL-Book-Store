@@ -5,7 +5,6 @@ import { useQuery } from "@apollo/client";
 import classes from "../styles/bookList.module.css";
 
 // ICONS
-import { RiLoader4Fill } from "react-icons/ri";
 import { AiOutlineReload } from "react-icons/ai";
 
 // COMPONENTS
@@ -16,7 +15,7 @@ import Loader from "./Loader";
 import { LATEST_BOOKS, SEARCHED_BOOKS } from "../GraphQL/Queries";
 import { BookContext } from "../ContextApi";
 
-const Books = ({ refDetail }) => {
+const Books = ({ refDetail, refBook }) => {
   //States
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +42,9 @@ const Books = ({ refDetail }) => {
     skip: !isSearched,
     onError: () => {
       setBook(null);
+    },
+    onCompleted: () => {
+      window.scrollTo({ top: 0 });
     },
   });
 
@@ -79,18 +81,30 @@ const Books = ({ refDetail }) => {
                 <>
                   <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
                   {searchedBooks.books.map((book, i) => (
-                    <Book key={book.isbn13} book={book} refDetail={refDetail} />
+                    <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
                   ))}
 
                   <div className={classes.pagination}>
-                    {[...Array(Math.ceil(searchedBooks.total / 10))].map((_, i) => (
-                      <span
-                        key={i}
-                        className={`${currentPage === i + 1 && classes.currentPage}  ${classes.page}`}
-                        onClick={() => setCurrentPage(i + 1)}>
-                        {i + 1}
-                      </span>
-                    ))}
+                    <span className={`${currentPage === 1 && classes.disabled} ${classes.page}`} onClick={() => setCurrentPage(currentPage - 1)}>
+                      &#60;
+                    </span>
+                    {Array.from(Array(Math.ceil(searchedBooks.total / 10)).keys())
+                      .slice(currentPage - 1, currentPage + 4)
+                      .map((val, i) => (
+                        <span
+                          key={i}
+                          className={`${currentPage === val + 1 && classes.currentPage}  ${classes.page}`}
+                          onClick={() => setCurrentPage(val + 1)}>
+                          {val + 1}
+                        </span>
+                      ))}
+                    <span
+                      className={`${Math.ceil(searchedBooks.total / 10) === currentPage && classes.disabled}  ${classes.page}`}
+                      onClick={() => {
+                        if (currentPage !== Math.ceil(searchedBooks.total / 10)) setCurrentPage(currentPage + 1);
+                      }}>
+                      &#62;
+                    </span>
                   </div>
                 </>
               )}
@@ -99,7 +113,7 @@ const Books = ({ refDetail }) => {
             <>
               <h1 className={classes.heading}>Latest Book</h1>
               {books.map((book, i) => (
-                <Book key={book.isbn13} book={book} refDetail={refDetail} />
+                <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
               ))}
             </>
           )}
