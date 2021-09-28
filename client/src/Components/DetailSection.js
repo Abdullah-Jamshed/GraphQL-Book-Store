@@ -28,11 +28,24 @@ const DetailSection = ({ refDetail }) => {
         <>
           {book ? (
             <div className={classes.detail}>
-              {Object.keys(book).map((key, i) => (
-                <p key={i}>
-                  <span className={classes.key}>{key} :</span> {book[key]}
-                </p>
-              ))}
+              {Object.keys(book).map(
+                (key, i) =>
+                  book[key] &&
+                  (key == "authors" && book[key].split(",").length > 1 ? (
+                    <div key={i}>
+                      <span className={classes.key}>{key} :</span>
+                      <ul className={classes.list}>
+                        {book[key].split(",").map((val) => (
+                          <li>{val}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p key={i}>
+                      <span className={classes.key}>{key === "authors" ? "author" : key} :</span> {book[key]}
+                    </p>
+                  ))
+              )}
             </div>
           ) : (
             <h2>Select Book</h2>

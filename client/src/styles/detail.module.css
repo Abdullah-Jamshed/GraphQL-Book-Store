@@ -28,6 +28,7 @@
   flex: 1;
   padding: 20px;
   text-transform: capitalize;
+  line-height: 18px;
 }
 
 .detail p {
@@ -35,7 +36,15 @@
 }
 
 .key {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   color: #e535ab;
+}
+
+.list {
+  padding-left: 40px;
+}
+
+.list li {
+  margin: 10px;
 }
