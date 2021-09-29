@@ -8,9 +8,24 @@ export const BookProvider = ({ children }) => {
   const [isSearched, setIsSearched] = useState(false);
   const [searchedInput, setSearchedInput] = useState("");
   const [offSet, setOffSet] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <BookContext.Provider value={{ id, setId, book, setBook, isSearched, setIsSearched, searchedInput, setSearchedInput, offSet, setOffSet }}>
+    <BookContext.Provider
+      value={{
+        id,
+        setId,
+        book,
+        setBook,
+        isSearched,
+        setIsSearched,
+        searchedInput,
+        setSearchedInput,
+        offSet,
+        setOffSet,
+        currentPage,
+        setCurrentPage,
+      }}>
       {children}
     </BookContext.Provider>
   );

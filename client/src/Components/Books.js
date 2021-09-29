@@ -10,6 +10,7 @@ import { AiOutlineReload } from "react-icons/ai";
 // COMPONENTS
 import Book from "./Book";
 import Loader from "./Loader";
+import Pagination from "./Pagination";
 
 // GrapghQl Queries
 import { LATEST_BOOKS, SEARCHED_BOOKS } from "../GraphQL/Queries";
@@ -18,9 +19,8 @@ import { BookContext } from "../ContextApi";
 const Books = ({ refDetail, refBook }) => {
   //States
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const { setBook, searchedInput, isSearched } = useContext(BookContext);
+  const { currentPage, setBook, searchedInput, isSearched } = useContext(BookContext);
 
   // Queries
   const { error, loading, data, refetch } = useQuery(LATEST_BOOKS, {
@@ -34,7 +34,7 @@ const Books = ({ refDetail, refBook }) => {
   const {
     error: err2,
     loading: loading2,
-    data: { searchedBooks } = [],
+    data: { searchedBooks } = {},
     refetch: rfSearch,
   } = useQuery(SEARCHED_BOOKS, {
     variables: { currentPage, searchedInput },
@@ -47,6 +47,8 @@ const Books = ({ refDetail, refBook }) => {
       window.scrollTo({ top: 0 });
     },
   });
+
+  const totalPage = searchedBooks && Math.ceil(searchedBooks.total / 10);
 
   // Lifecycles
   useEffect(() => {
@@ -79,33 +81,16 @@ const Books = ({ refDetail, refBook }) => {
                 </h1>
               ) : (
                 <>
-                  <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
-                  {searchedBooks.books.map((book, i) => (
-                    <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
-                  ))}
-
-                  <div className={classes.pagination}>
-                    <span className={`${currentPage === 1 && classes.disabled} ${classes.page}`} onClick={() => setCurrentPage(currentPage - 1)}>
-                      &#60;
-                    </span>
-                    {Array.from(Array(Math.ceil(searchedBooks.total / 10)).keys())
-                      .slice(currentPage - 1, currentPage + 4)
-                      .map((val, i) => (
-                        <span
-                          key={i}
-                          className={`${currentPage === val + 1 && classes.currentPage}  ${classes.page}`}
-                          onClick={() => setCurrentPage(val + 1)}>
-                          {val + 1}
-                        </span>
+                  {searchedBooks && (
+                    <>
+                      <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
+                      {searchedBooks.books.map((book, i) => (
+                        <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
                       ))}
-                    <span
-                      className={`${Math.ceil(searchedBooks.total / 10) === currentPage && classes.disabled}  ${classes.page}`}
-                      onClick={() => {
-                        if (currentPage !== Math.ceil(searchedBooks.total / 10)) setCurrentPage(currentPage + 1);
-                      }}>
-                      &#62;
-                    </span>
-                  </div>
+                    </>
+                  )}
+
+                  <Pagination totalPage={totalPage} />
                 </>
               )}
             </>
