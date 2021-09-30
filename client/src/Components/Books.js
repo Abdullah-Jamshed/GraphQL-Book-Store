@@ -16,7 +16,7 @@ import Pagination from "./Pagination";
 import { LATEST_BOOKS, SEARCHED_BOOKS } from "../GraphQL/Queries";
 import { BookContext } from "../ContextApi";
 
-const Books = ({ refDetail, refBook }) => {
+const Books = ({ refDetail }) => {
   //States
   const [books, setBooks] = useState([]);
 
@@ -85,7 +85,7 @@ const Books = ({ refDetail, refBook }) => {
                     <>
                       <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
                       {searchedBooks.books.map((book, i) => (
-                        <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
+                        <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
                       ))}
                     </>
                   )}
@@ -98,7 +98,7 @@ const Books = ({ refDetail, refBook }) => {
             <>
               <h1 className={classes.heading}>Latest Book</h1>
               {books.map((book, i) => (
-                <Book key={book.isbn13} book={book} refDetail={refDetail} refBook={refBook} />
+                <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
               ))}
             </>
           )}

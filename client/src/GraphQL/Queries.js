@@ -44,30 +44,3 @@ export const SEARCHED_BOOKS = gql`
     }
   }
 `;
-
-export const CREATE_BOOK = gql`
-  mutation ($createBookTitle: String!, $createBookSubtitle: String!, $createBookDescription: String!, $createBookAuthorId: ID!) {
-    createBook(title: $createBookTitle, subtitle: $createBookSubtitle, description: $createBookDescription, authorId: $createBookAuthorId) {
-      id
-      title
-      subtitle
-      published
-      authorId
-    }
-  }
-`;
-
-export const CREATE_AUTHOR = gql`
-  mutation ($createAuthorAuthor: String!, $createAuthorAge: Int!) {
-    createAuthor(author: $createAuthorAuthor, age: $createAuthorAge) {
-      id
-      author
-      age
-      books {
-        id
-        title
-        published
-      }
-    }
-  }
-`;

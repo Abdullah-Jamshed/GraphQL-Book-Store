@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useRef } from "react";
 
 export const BookContext = createContext();
 
@@ -7,9 +7,9 @@ export const BookProvider = ({ children }) => {
   const [book, setBook] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
   const [searchedInput, setSearchedInput] = useState("");
-  const [offSet, setOffSet] = useState(0);
+  const [index, setIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const bookRef = useRef([]);
   return (
     <BookContext.Provider
       value={{
@@ -21,10 +21,11 @@ export const BookProvider = ({ children }) => {
         setIsSearched,
         searchedInput,
         setSearchedInput,
-        offSet,
-        setOffSet,
+        index,
+        setIndex,
         currentPage,
         setCurrentPage,
+        bookRef,
       }}>
       {children}
     </BookContext.Provider>

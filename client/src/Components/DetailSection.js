@@ -10,7 +10,7 @@ import { BOOK_BY_ID } from "../GraphQL/Queries";
 import Loader from "./Loader";
 
 const DetailSection = ({ refDetail }) => {
-  const { id, book, setBook, offSet } = useContext(BookContext);
+  const { id, book, setBook, index, bookRef } = useContext(BookContext);
 
   const { data, loading, error } = useQuery(BOOK_BY_ID, { variables: { bookId: id }, skip: !id });
 
@@ -49,7 +49,7 @@ const DetailSection = ({ refDetail }) => {
               <button
                 className={classes.bookButton}
                 onClick={() => {
-                  window.scrollTo({ top: offSet });
+                  window.scrollTo({ top: bookRef.current[index || 0].offsetTop });
                 }}>
                 back to book
               </button>

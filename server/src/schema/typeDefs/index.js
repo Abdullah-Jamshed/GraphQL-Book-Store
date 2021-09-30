@@ -5,8 +5,6 @@ const typeDefs = gql`
     books: Data!
     book(id: ID): Book!
     searchedBooks(currentPage: Int, searchedInput: String): Data!
-    authors: [Author!]!
-    author(id: ID!): Author!
   }
   type Data {
     total: String
@@ -28,18 +26,6 @@ const typeDefs = gql`
     price: String
     image: String
     url: String
-  }
-
-  type Author {
-    id: ID!
-    author: String!
-    age: Int!
-    books: [Book!]
-  }
-
-  type Mutation {
-    createAuthor(author: String!, age: Int!): Author
-    createBook(title: String!, subtitle: String!, description: String!, authorId: ID!): Book
   }
 `;
 
