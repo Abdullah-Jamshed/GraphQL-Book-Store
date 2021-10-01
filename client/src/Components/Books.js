@@ -4,22 +4,21 @@ import { useQuery } from "@apollo/client";
 // STYLES
 import classes from "../styles/bookList.module.css";
 
-// ICONS
-import { AiOutlineReload } from "react-icons/ai";
+// GrapghQl Queries
+import { LATEST_BOOKS, SEARCHED_BOOKS } from "../GraphQL/Queries";
+
+// Context API
+import { BookContext } from "../ContextApi";
 
 // COMPONENTS
 import Book from "./Book";
 import Loader from "./Loader";
 import Pagination from "./Pagination";
-
-// GrapghQl Queries
-import { LATEST_BOOKS, SEARCHED_BOOKS } from "../GraphQL/Queries";
-import { BookContext } from "../ContextApi";
+import Error from "./Error";
 
 const Books = ({ refDetail }) => {
   //States
   const [books, setBooks] = useState([]);
-
   const { currentPage, setBook, searchedInput, isSearched } = useContext(BookContext);
 
   // Queries
@@ -32,7 +31,7 @@ const Books = ({ refDetail }) => {
   });
 
   const {
-    error: err2,
+    error: error2,
     loading: loading2,
     data: { searchedBooks } = {},
     refetch: rfSearch,
@@ -60,40 +59,25 @@ const Books = ({ refDetail }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <h1 className={classes.error}>
-          Something Went Wrong
-          <span>
-            <AiOutlineReload className={classes.reloadIcon} onClick={() => refetch()} />
-          </span>
-        </h1>
+        <Error refetch={refetch} />
       ) : (
         <div className={classes.booksContainer}>
           {isSearched ? (
-            <>
-              {loading2 ? (
-                <Loader />
-              ) : err2 ? (
-                <h1 className={classes.error}>
-                  Something Went Wrong
-                  <span>
-                    <AiOutlineReload className={classes.reloadIcon} onClick={() => rfSearch()} />
-                  </span>
-                </h1>
-              ) : (
+            loading2 ? (
+              <Loader />
+            ) : error2 ? (
+              <Error refetch={rfSearch} />
+            ) : (
+              searchedBooks && (
                 <>
-                  {searchedBooks && (
-                    <>
-                      <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
-                      {searchedBooks.books.map((book, i) => (
-                        <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
-                      ))}
-                    </>
-                  )}
-
+                  <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
+                  {searchedBooks.books.map((book, i) => (
+                    <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
+                  ))}
                   <Pagination totalPage={totalPage} />
                 </>
-              )}
-            </>
+              )
+            )
           ) : (
             <>
               <h1 className={classes.heading}>Latest Book</h1>
