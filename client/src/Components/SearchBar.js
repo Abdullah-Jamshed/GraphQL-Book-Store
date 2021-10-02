@@ -12,7 +12,7 @@ import { BookContext } from "../ContextApi";
 const SearchBar = () => {
   const [value, setValue] = useState("");
 
-  const { setIsSearched, setSearchedInput } = useContext(BookContext);
+  const { setIsSearched, setCurrentPage, setSearchedInput, setBook } = useContext(BookContext);
 
   return (
     <div className={classes.searchBar}>
@@ -27,9 +27,13 @@ const SearchBar = () => {
       <div className={classes.searchIcon}>
         <FiSearch
           onClick={() => {
+            setCurrentPage(1);
+            setBook(null);
             if (value !== "") {
               setIsSearched(true);
               setSearchedInput(value);
+            } else {
+              setIsSearched(false);
             }
           }}
         />

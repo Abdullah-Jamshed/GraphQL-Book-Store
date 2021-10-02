@@ -14,8 +14,8 @@ import { BookProvider } from "../ContextApi";
 
 const errorLink = onError(({ graphqlErrors }) => {
   if (graphqlErrors) {
-    graphqlErrors.map(({ message }) => {
-      alert(`Graphql error ${message}`);
+    graphqlErrors.forEach(({ message }) => {
+      console.log(`Graphql error ${message}`);
     });
   }
 });

@@ -19,7 +19,7 @@ import Error from "./Error";
 const Books = ({ refDetail }) => {
   //States
   const [books, setBooks] = useState([]);
-  const { currentPage, setBook, searchedInput, isSearched } = useContext(BookContext);
+  const { currentPage, setCurrentPage, setBook, searchedInput, isSearched } = useContext(BookContext);
 
   // Queries
   const { error, loading, data, refetch } = useQuery(LATEST_BOOKS, {
@@ -47,8 +47,6 @@ const Books = ({ refDetail }) => {
     },
   });
 
-  const totalPage = searchedBooks && Math.ceil(searchedBooks.total / 10);
-
   // Lifecycles
   useEffect(() => {
     if (data) setBooks(data.books.books);
@@ -63,21 +61,30 @@ const Books = ({ refDetail }) => {
       ) : (
         <div className={classes.booksContainer}>
           {isSearched ? (
-            loading2 ? (
-              <Loader />
-            ) : error2 ? (
-              <Error refetch={rfSearch} />
-            ) : (
-              searchedBooks && (
-                <>
-                  <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
-                  {searchedBooks.books.map((book, i) => (
-                    <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
-                  ))}
-                  <Pagination totalPage={totalPage} />
-                </>
-              )
-            )
+            <>
+              {loading2 ? (
+                <Loader />
+              ) : error2 ? (
+                <Error refetch={rfSearch} />
+              ) : (
+                searchedBooks && (
+                  <>
+                    <h1 className={classes.heading}>Matched {searchedBooks.total}</h1>
+                    <>
+                      {searchedBooks.books.map((book, i) => (
+                        <Book key={book.isbn13} book={book} refDetail={refDetail} index={i} />
+                      ))}
+                      <Pagination
+                        currentPage={currentPage}
+                        totalCount={searchedBooks.total}
+                        pageSize={10}
+                        onPageChange={(page) => setCurrentPage(page)}
+                      />
+                    </>
+                  </>
+                )
+              )}
+            </>
           ) : (
             <>
               <h1 className={classes.heading}>Latest Book</h1>

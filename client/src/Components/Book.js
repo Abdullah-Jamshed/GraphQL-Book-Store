@@ -13,8 +13,6 @@ const Book = ({ book, refDetail, index }) => {
       className={`${id === book.isbn13 && classes.selected} ${classes.bookContainer}`}
       onClick={(e) => {
         setIndex(index);
-        // console.log(e.target.offsetTop);
-        // setOffSet(e.target.offsetTop);
         if (window.innerWidth <= 760) {
           window.scrollTo({ top: refDetail.current.offsetTop });
         }
