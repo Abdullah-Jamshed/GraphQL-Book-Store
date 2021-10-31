@@ -7,11 +7,13 @@ import classes from "../styles/detail.module.css";
 
 // Querise
 import { BOOK_BY_ID } from "../GraphQL/Queries";
+
+// Components
 import Loader from "./Loader";
+import Detail from "./Detail";
 
 const DetailSection = ({ refDetail }) => {
-  const { id, book, setBook, index, bookRef } = useContext(BookContext);
-
+  const { id, setBook } = useContext(BookContext);
   const { data, loading, error } = useQuery(BOOK_BY_ID, { variables: { bookId: id }, skip: !id });
 
   useEffect(() => {
@@ -20,45 +22,7 @@ const DetailSection = ({ refDetail }) => {
 
   return (
     <div className={classes.main} ref={refDetail}>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <h1>Error</h1>
-      ) : (
-        <>
-          {book ? (
-            <div className={classes.detail}>
-              {Object.keys(book).map(
-                (key, i) =>
-                  book[key] &&
-                  (key === "authors" && book[key].split(",").length > 1 ? (
-                    <div key={i}>
-                      <span className={classes.key}>{key} :</span>
-                      <ul className={classes.list}>
-                        {book[key].split(",").map((val, i) => (
-                          <li key={i}>{val}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <p key={i}>
-                      <span className={classes.key}>{key === "authors" ? "author" : key} :</span> {book[key]}
-                    </p>
-                  ))
-              )}
-              <button
-                className={classes.bookButton}
-                onClick={() => {
-                  window.scrollTo({ top: bookRef.current[index || 0].offsetTop });
-                }}>
-                back to book
-              </button>
-            </div>
-          ) : (
-            <h2>Select Book</h2>
-          )}
-        </>
-      )}
+      {loading ? <Loader /> : error ? <h1>Error</h1> : <Detail />}
     </div>
   );
 };
