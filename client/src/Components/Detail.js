@@ -33,7 +33,7 @@ const Detail = () => {
           <button
             className={classes.bookButton}
             onClick={() => {
-              window.scrollTo({ top: bookRef.current[index || 0].offsetTop });
+              window.scrollTo({ top: bookRef.current[index].offsetTop });
             }}>
             back to book
           </button>
