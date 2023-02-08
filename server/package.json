@@ -2,6 +2,9 @@
   "name": "GraphQL-Book-Store",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^3.3.0",
